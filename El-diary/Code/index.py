@@ -132,5 +132,4 @@ def main():
         print('Ошибка: не указан обязательный параметр action.')
 
 if __name__ == '__main__':
-    print(a_p(''))
     main()
