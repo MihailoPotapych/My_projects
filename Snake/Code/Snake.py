@@ -1,6 +1,5 @@
 from tkinter import *
 import random as r
-import sys
 
 size = 20
 tick = 100
