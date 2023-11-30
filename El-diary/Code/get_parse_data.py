@@ -4,14 +4,16 @@ from datetime import datetime
 from constants import abs_path as a_p
 from get_valid_session_id import get_valid_session_id
 
+PATH = a_p(r'data\session_id.txt')
 try:
-    with open(a_p(r'data\session_id.txt'), 'w+') as f:
+    with open(PATH) as f:
         SESSION_ID = f.read()
 except IOError:
+    open(PATH, 'w').close()
     SESSION_ID = ''
 
 def get_journal():
-    global SESSION_ID
+    global SESSION_ID, PATH
     cookies = {
         'NodeID': 'node1',
         'csrftoken': 'wgmFSFHiPDittFj0jATUtUUGUncT4sxaweOE0W9kS2mt63dnupngz5R1AtEOq0B8',
@@ -52,7 +54,7 @@ def get_journal():
         if value == False:
             return False
         SESSION_ID = value if value else get_journal()
-        with open(a_p(r'data\session_id.txt'), 'w') as f:
+        with open(PATH, 'w') as f:
             f.write(SESSION_ID)
         result = get_journal()
     return result
