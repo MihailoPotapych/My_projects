@@ -57,12 +57,17 @@ def method_2():
     not_empty = False
     for line in raw_data:
         date = line[0]
-        date = date[date.find('-')+1:] + '.' + date[:date.find('-')]
-        print(f"Дата: {date.replace('-', '.')}")
+        dots = dots = [i for i, char in enumerate(date) if char == '-']
+        y, m, d = date[:dots[0]], date[dots[0]+1:dots[1]], date[dots[1]+1:]
+        date = f'{d}.{m}.{y}'
+        print('Дата:' ,date)
         for e in enumerate(line[1:]):
             i, mark = e[0], e[1]
             if mark:
-                out_mark = mark if len(mark) == 1 else f'{mark[0]}/{mark[1]}'
+                out_mark = \
+                    ''.join([f'{one_mark}/' if i + 1 != len(mark)
+                        else f'{one_mark}'
+                            for i, one_mark in enumerate(mark)])
                 print(f" {DISCIPLINES[i].replace('_', ' ')}: {out_mark}")
                 not_empty = True
     if not not_empty:
